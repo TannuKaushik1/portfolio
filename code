@@ -1,0 +1,209 @@
+import React, { useState } from "react";
+import { Mail, Linkedin, Github, Download, ExternalLink, X, Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import ProfileImage from "/public/d540666a-25b6-459f-b644-ca3074f0bcbc.jpg";
+
+const projects = [
+  {
+    title: "Deep-Fake-Detection-System",
+    description: "A research-based project to detect deepfake content using text, audio, and video cues.",
+    tags: ["AI", "Deep Learning"],
+    link: "https://github.com/TannuKaushik1/Deep-Fake-Detection-System"
+  },
+  {
+    title: "Deep-Learning-Practise-Questions",
+    description: "A curated set of hands-on deep learning questions for practice.",
+    tags: ["Deep Learning"],
+    link: "https://github.com/TannuKaushik1/Deep-Learning-Practise-Questions"
+  },
+  {
+    title: "Deep-Learning-Research-Papers",
+    description: "Literature review and papers on latest deep learning advancements.",
+    tags: ["Research"],
+    link: "https://github.com/TannuKaushik1/Deep-Learning-Research-Papers"
+  },
+  {
+    title: "Diet-Managment-System",
+    description: "A beginner project for managing personalized diet and health recommendations.",
+    tags: ["Web", "Python"],
+    link: "https://github.com/TannuKaushik1/Diet-Managment-System"
+  },
+  {
+    title: "Exam-Schedular-DSA",
+    description: "Java-based scheduler for managing exam dates, optimized using DSA.",
+    tags: ["Java", "DSA"],
+    link: "https://github.com/TannuKaushik1/Exam-Schedular-Data-Structures-and-algorithm"
+  },
+  {
+    title: "Java-Practise-Questions",
+    description: "Compilation of Java programs and problem-solving exercises.",
+    tags: ["Java"],
+    link: "https://github.com/TannuKaushik1/Java-Practise-Questions"
+  },
+  {
+    title: "SAP Integration Module",
+    description: "Maruti Suzuki internship project focusing on SAP PP module efficiency.",
+    tags: ["Internship", "SAP"],
+    link: "https://github.com/TannuKaushik1/SAP-Integration-Maruti-Suzuki"
+  },
+  {
+    title: "Portfolio",
+    description: "Personal portfolio built with React and Tailwind CSS.",
+    tags: ["Web", "React"],
+    link: "https://github.com/TannuKaushik1/Portfolio"
+  },
+  {
+    title: "Smart-E-Waste-Segregation-Machine",
+    description: "GDSC project to optimize and automate e-waste segregation logistics.",
+    tags: ["GDSC", "ML"],
+    link: "https://github.com/satya-ctrl/Smart-E-Waste-Collection-Machine-"
+  },
+  {
+    title: "Stock-Market-Prediction-System",
+    description: "Predictive analytics for stock prices using ML algorithms.",
+    tags: ["ML", "Finance"],
+    link: "https://github.com/TannuKaushik1/Stock-Market-Prediction"
+  },
+  {
+    title: "ATM Simulation System",
+    description: "Simulates secure ATM transactions with a user-friendly interface.",
+    tags: ["Python", "Simulation"],
+    link: "https://github.com/TannuKaushik1/Automated-Teller-Machine-simulation-"
+  }
+];
+
+export default function Portfolio() {
+  const [selectedTag, setSelectedTag] = useState("All");
+  const [modalProject, setModalProject] = useState(null);
+
+  const allTags = ["All", ...new Set(projects.flatMap(p => p.tags))];
+  const filteredProjects = selectedTag === "All" ? projects : projects.filter(p => p.tags.includes(selectedTag));
+
+  return (
+    <main className="bg-black text-white min-h-screen font-sans overflow-x-hidden scroll-smooth">
+      <motion.section 
+        className="h-screen flex flex-col justify-center items-center text-center px-4"
+        initial={{ opacity: 0, y: 50 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.8 }}
+      >
+        <div className="w-36 h-36 rounded-full overflow-hidden mb-4">
+          <Image 
+            src={ProfileImage} 
+            alt="Tannu Kaushik profile" 
+            width={144} 
+            height={144} 
+            className="object-cover w-full h-full" 
+          />
+        </div>
+        <h1 className="text-5xl md:text-7xl font-bold mb-4">Tannu Kaushik</h1>
+        <p className="text-xl md:text-2xl text-gray-300">AI & ML Engineering Student</p>
+        <p className="text-md md:text-lg text-gray-400 mt-2">Deep Learning | Data Science | Web Dev</p>
+        <div className="flex flex-wrap justify-center gap-4 mt-6">
+          <a href="mailto:tannukaushik1503@gmail.com" className="hover:underline text-sm flex items-center gap-1">
+            <Mail size={16} /> Email
+          </a>
+          <a href="https://www.linkedin.com/in/tannu-kaushik-539a16264/" target="_blank" className="hover:underline text-sm flex items-center gap-1">
+            <Linkedin size={16} /> LinkedIn
+          </a>
+          <a href="https://github.com/TannuKaushik1" target="_blank" className="hover:underline text-sm flex items-center gap-1">
+            <Github size={16} /> GitHub
+          </a>
+          <a href="https://leetcode.com/u/Tannu_Kaushik/" target="_blank" className="hover:underline text-sm">
+            🧠 LeetCode
+          </a>
+          <a href="/resume-tannu-kaushik.pdf" target="_blank" className="hover:underline text-sm flex items-center gap-1">
+            <Download size={16} /> Resume
+          </a>
+        </div>
+      </motion.section>
+
+      <motion.section
+        className="min-h-screen flex flex-col items-center text-center px-8"
+        initial={{ opacity: 0, y: 50 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="text-3xl md:text-4xl font-semibold mb-6">Featured Projects</h2>
+
+        <div className="flex flex-wrap gap-3 mb-8 justify-center">
+          {allTags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => setSelectedTag(tag)}
+              className={`px-4 py-1 rounded-full border ${
+                selectedTag === tag ? "bg-white text-black" : "border-white text-white hover:bg-white hover:text-black"
+              } transition`}
+            >
+              #{tag}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full">
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setModalProject(project)}
+              className="bg-zinc-900 rounded-2xl p-5 shadow-xl transition-all duration-300 hover:shadow-2xl cursor-pointer group relative overflow-hidden"
+            >
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-semibold group-hover:text-white transition">{project.title}</h3>
+                <ExternalLink size={16} className="text-gray-400 group-hover:text-white" />
+              </div>
+              <p className="text-gray-400 text-sm mt-2 line-clamp-2">{project.description}</p>
+              <div className="flex flex-wrap gap-1 mt-3">
+                {project.tags.map(tag => (
+                  <span key={tag} className="bg-gray-700 text-xs px-2 py-1 rounded-full">#{tag}</span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      <AnimatePresence>
+        {modalProject && (
+          <motion.div 
+            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 px-4"
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            onClick={() => setModalProject(null)}
+          >
+            <motion.div
+              className="bg-zinc-900 p-6 rounded-xl max-w-md w-full relative"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+            >
+              <button onClick={() => setModalProject(null)} className="absolute top-2 right-2 text-gray-400 hover:text-white">
+                <X size={20} />
+              </button>
+              <h3 className="text-2xl font-semibold mb-2">{modalProject.title}</h3>
+              <p className="text-gray-300 mb-4">{modalProject.description}</p>
+              <div className="mb-2 text-sm text-gray-400">
+                <strong>Technologies:</strong> {modalProject.tags.join(", ")}
+              </div>
+              <div className="flex items-center text-sm text-yellow-400 gap-1 mb-4">
+                <Star size={16} /> GitHub Stars: <span className="font-semibold">★ 42</span>
+              </div>
+              <a href={modalProject.link} target="_blank" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition text-sm font-medium">
+                View Full Project on GitHub
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <footer className="text-center text-gray-600 text-sm py-6">
+        &copy; 2025 Tannu Kaushik. All rights reserved.
+      </footer>
+    </main>
+  );
+}
